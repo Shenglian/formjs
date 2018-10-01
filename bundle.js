@@ -1,10 +1,20 @@
-import emoji from 'emoji-regex';
+'use strict';
 
-import {
-  email,
-  password,
-  textLength
-} from './utils'
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var emoji = _interopDefault(require('emoji-regex'));
+
+function email(value) {  
+  return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)
+}
+
+function password(value) {
+  return /^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/.test(value)
+}
+
+function textLength(value) {
+  return /^.{1,10}$/g.test(value)
+}
 
 class Form {
   constructor({
@@ -12,7 +22,7 @@ class Form {
     initVerification = false,
     totalErrorCallback,
   } = {}) {
-    this.inputGroup = inputGroup
+    this.inputGroup = inputGroup;
 
     this.password = null;
 
@@ -28,31 +38,31 @@ class Form {
     this.version  = VERSION;
     this.author   = SHENG;
 
-    this.whoUseIt = this.inputGroup[0].label.parentElement || 'No Parent Here'
+    this.whoUseIt = this.inputGroup[0].label.parentElement || 'No Parent Here';
 
-    this.init()
-    console.log('watch init ...')
+    this.init();
+    console.log('watch init ...');
   }
 
   init() {
     this.initVerification 
     ? this.verification()
-    : null
+    : null;
 
     // 需要被驗證的一開始，設定成 false
-    this.setDefaultValue()
+    this.setDefaultValue();
 
-    this.bindEvent()
+    this.bindEvent();
   }
 
   responseData(type, value) {
-    type === 'password' ? this.password = value : null
+    type === 'password' ? this.password = value : null;
   }
 
   clearAllInputStatus() {
     for (let inputs of this.inputGroup) {
-      inputs.label.classList.remove('invalid')
-      inputs.label.classList.remove('valid')
+      inputs.label.classList.remove('invalid');
+      inputs.label.classList.remove('valid');
     }
   }
 
@@ -65,22 +75,22 @@ class Form {
     : (
       ele.classList.add('invalid'),
       ele.classList.remove('valid')
-    )
+    );
   }
 
   setDefaultValue() {
     for (const input of Array.from(this.inputGroup)) {
-      input.type === 'email' ? this.isEmail = false : true
-      input.type === 'password' ? this.isPassword = false : true
-      input.type === 'check_password' ? this.isCheckPassword = false : true
-      input.type === 'other' ? this.isUser = false : true
+      input.type === 'email' ? this.isEmail = false : true;
+      input.type === 'password' ? this.isPassword = false : true;
+      input.type === 'check_password' ? this.isCheckPassword = false : true;
+      input.type === 'other' ? this.isUser = false : true;
     }
   }
   
   inputCheck(label, type, value) {
     switch(type) {
       case 'email':
-        this.isEmail = email(value)
+        this.isEmail = email(value);
 
         value.length > 0 
         ? email(value)
@@ -95,14 +105,14 @@ class Form {
         : (
           label.classList.remove('invalid'),
           label.classList.remove('valid')
-        )
+        );
       break;
 
       case 'password':
         if (password(value)) {
-          this.password = value
+          this.password = value;
         }
-        this.isPassword = password(value)
+        this.isPassword = password(value);
 
         value.length > 0 
         ? password(value) 
@@ -117,13 +127,13 @@ class Form {
         : (
           label.classList.remove('invalid'),
           label.classList.remove('valid')
-        )
+        );
       break;
 
       case 'check_password':
-        let checkPassword = value
+        let checkPassword = value;
 
-        this.isCheckPassword = checkPassword === this.password
+        this.isCheckPassword = checkPassword === this.password;
 
         value.length > 0 
         ? checkPassword === this.password
@@ -138,14 +148,14 @@ class Form {
         : (
           label.classList.remove('invalid'),
           label.classList.remove('valid')
-        )
+        );
       break;
 
       case 'other':
         let match = emoji().exec(value);
         this.isUser = (match === null) && textLength(value)
         ? true 
-        : false
+        : false;
 
         value.length > 0 
         ? (match === null) && textLength(value)
@@ -160,7 +170,7 @@ class Form {
         : (
           label.classList.remove('invalid'),
           label.classList.remove('valid')
-        )
+        );
       break;
     }
   }
@@ -174,9 +184,9 @@ class Form {
       this.isCheckPassword &&
       this.isUser
     ) {
-      result = true
+      result = true;
     } else {
-      result = false
+      result = false;
     }
 
     return result;
@@ -191,34 +201,34 @@ class Form {
         input.label.querySelector('input').value, 
         input.isResponseStatus
       )
-      : null
+      : null;
 
       this.inputStatus() 
       ? this.totalError = true 
-      : this.totalError = false
+      : this.totalError = false;
     }
 
-    this.totalErrorCallback(this.totalError)    
+    this.totalErrorCallback(this.totalError);    
   }
 
   bindEvent() {
     for (let input of Array.from(this.inputGroup)) {
       input.input.addEventListener('input', (e) => {
-        this.inputCheck(input.label, input.type, e.target.value, input.isResponseStatus)
-        this.inputStatus()
+        this.inputCheck(input.label, input.type, e.target.value, input.isResponseStatus);
+        this.inputStatus();
 
         e.target.value.length > 0 
         && this.inputStatus()
         ? this.totalError = true
-        : this.totalError = false
+        : this.totalError = false;
 
-        this.totalErrorCallback(this.totalError)
-      })
+        this.totalErrorCallback(this.totalError);
+      });
     }
   }
 
   destroyed() {
-    this.inputGroup       = null
+    this.inputGroup       = null;
     this.password         = null;
     this.isEmail          = null;
     this.isPassword       = null;
@@ -230,4 +240,4 @@ class Form {
   }
 }
 
-window.Form = Form
+window.Form = Form;
