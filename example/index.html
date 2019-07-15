@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title> Form Demo </title>
+</head>
+<body>
+
+  <style lang="css">
+    form label {
+      display: flex;
+      flex-direction: column;
+      transition: all, .3s;
+    }
+
+    form label .error_text {
+      opacity: 0;
+    }
+
+    form label.valid {
+      background-color: rgb(116, 211, 156);
+    }
+
+    form label.invalid {
+      background-color: rgb(211, 116, 116);
+    }
+
+    form label.invalid .error_text {
+      opacity: 1;
+    }
+  </style>
+  
+  <form 
+    id="login-form"
+    action="return false;">
+    <label for="email">
+      <span> EMAIL </span>
+      <span class="error_text"> 輸入正確的 email </span>
+      <input name="email" type="email">
+    </label>
+    <label for="password">
+      <span> PASSWORD </span>
+      <span class="error_text"> 輸入正確的 password </span>
+      <input name="password" type="password">
+    </label>
+  </form>
+
+  <form id="demo" action="return false;">
+    <label for="user">
+      <span> USER </span>
+      <input name="user" type="text">
+    </label>
+    <label for="email">
+      <span> EMAIL </span>
+      <span class="error_text"> 輸入正確的 email </span>
+      <input name="email" type="email">
+    </label>
+    <label for="password">
+      <span> PASSWORD </span>
+      <span class="error_text"> 輸入正確的 password </span>
+      <input name="password" type="password">
+    </label>
+    <label for="check_password">
+      <span> CHECKPASSWORD </span>
+      <span class="error_text"> 輸入正確的 password </span>
+      <input name="check_password" type="password">
+    </label>
+  </form>
+
+  <script src="./bundle.js"></script>
+
+  <script>
+    var demoForm = new Form({
+      inputGroup: [
+        {
+          label: document.body.querySelector('#demo label[for="user"]'),
+          input: document.body.querySelector('#demo input[name="user"]'),
+          type: 'user',
+          isValid: true
+        },
+        {
+          label: document.body.querySelector('#demo label[for="email"]'),
+          input: document.body.querySelector('#demo input[name="email"]'),
+          type: 'email',
+          isValid: true
+        },
+        {
+          label: document.body.querySelector('#demo label[for="password"]'),
+          input: document.body.querySelector('#demo input[name="password"]'),
+          type: 'password',
+          isValid: true
+        },
+        {
+          label: document.body.querySelector('#demo label[for="check_password"]'),
+          input: document.body.querySelector('#demo input[name="check_password"]'),
+          type: 'check_password',
+          isValid: true
+        }
+      ],
+      totalErrorCallback: function(value) { console.log(value) },
+      initVerification: true,
+    })
+
+    var FormLogin = new Form({
+      inputGroup: [
+        {
+          label: document.body.querySelector('#login-form label[for="email"]'),
+          input: document.body.querySelector('#login-form input[name="email"]'),
+          type: 'email',
+          isValid: true
+        },
+        {
+          label: document.body.querySelector('#login-form label[for="password"]'),
+          input: document.body.querySelector('#login-form input[name="password"]'),
+          type: 'password',
+          isValid: true
+        }
+      ],
+      totalErrorCallback: function(value) { console.log(value) },
+      initVerification: true,
+    })
+  </script>
+</body>
+</html>

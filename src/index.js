@@ -1,10 +1,10 @@
-import emoji from 'emoji-regex';
+function email(value) {  
+  return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)
+}
 
-import {
-  email,
-  password,
-  textLength
-} from './utils'
+function password(value) {
+  return /^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/.test(value)
+}
 
 class Form {
   constructor({
@@ -25,8 +25,8 @@ class Form {
     this.initVerification = initVerification;
     this.totalErrorCallback = totalErrorCallback;
 
-    this.version  = VERSION;
-    this.author   = SHENG;
+    this.version  = 'VERSION';
+    this.author   = 'SHENG';
 
     this.whoUseIt = this.inputGroup[0].label.parentElement || 'No Parent Here'
 
@@ -79,6 +79,9 @@ class Form {
   
   inputCheck(label, type, value) {
     switch(type) {
+      case 'user': 
+        this.isUser = true
+      break;
       case 'email':
         this.isEmail = email(value)
 
@@ -142,25 +145,6 @@ class Form {
       break;
 
       case 'other':
-        let match = emoji().exec(value);
-        this.isUser = (match === null) && textLength(value)
-        ? true 
-        : false
-
-        value.length > 0 
-        ? (match === null) && textLength(value)
-          ? (
-            label.classList.remove('invalid'),
-            label.classList.add('valid')
-          )
-          : (
-            label.classList.add('invalid'),
-            label.classList.remove('valid')
-          )
-        : (
-          label.classList.remove('invalid'),
-          label.classList.remove('valid')
-        )
       break;
     }
   }
@@ -191,7 +175,7 @@ class Form {
         input.label.querySelector('input').value, 
         input.isResponseStatus
       )
-      : null
+      : console.log('NO VALUES')
 
       this.inputStatus() 
       ? this.totalError = true 
