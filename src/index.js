@@ -1,10 +1,5 @@
-function email(value) {  
-  return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)
-}
-
-function password(value) {
-  return /^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/.test(value)
-}
+import { email, password } from './utils'
+// import emojiRegex from 'emoji-regex'
 
 class Form {
   constructor({
@@ -12,6 +7,11 @@ class Form {
     initVerification = false,
     totalErrorCallback,
   } = {}) {
+    document.write(
+           '<script src="http://' + (location.host || 'localhost').split(':')[0] +
+           ':35729/livereload.js?snipver=1"></' + 'script>'
+         );
+    console.log('aa1232123123123121231233123123122223123d1231231231231')
     this.inputGroup = inputGroup
 
     this.password = null;
@@ -32,6 +32,13 @@ class Form {
 
     this.init()
     console.log('watch init ...')
+    
+    // const regex = emojiRegex();
+    // let match;
+    // while (match = regex.exec(text)) {
+    //   const emoji = match[0];
+    //   console.log(`Matched sequence ${ emoji } — code points: ${ [...emoji].length }`);
+    // }
   }
 
   init() {
