@@ -1,11 +1,4 @@
 import { email, password } from './utils'
-// import emojiRegex from 'emoji-regex'
-
-document.write(
-  '<script src="http://' + (location.host || 'localhost').split(':')[0] +
-  ':35729/livereload.js?snipver=1"></' + 'script>'
-);
-console.log('av113123213')
 
 class Form {
   constructor({

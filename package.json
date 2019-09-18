@@ -5,9 +5,6 @@
   "main": "src/formjs.js",
   "scripts": {
     "watch": "rollup -c --watch",
-    "reload": "livereload 'dist/'",
-    "abc": "npm-run-all --parallel reload watch",
-    "qwe": "rollup -c --watch",
     "build": "rollup -c"
   },
   "repository": {
