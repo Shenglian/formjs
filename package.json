@@ -65,7 +65,7 @@
   },
   "dependencies": {
     "i": "^0.3.6",
-    "npm": "^6.4.1",
+    "npm": "^6.13.4",
     "the-answer": "^1.0.0",
     "uglifyjs-webpack-plugin": "^2.0.1"
   }
