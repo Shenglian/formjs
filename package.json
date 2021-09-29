@@ -64,7 +64,7 @@
     "webpack-uglify-js-plugin": "^1.1.9"
   },
   "dependencies": {
-    "i": "^0.3.6",
+    "i": "^0.3.7",
     "npm": "^6.4.1",
     "the-answer": "^1.0.0",
     "uglifyjs-webpack-plugin": "^2.0.1"
